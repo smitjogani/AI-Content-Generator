@@ -1,6 +1,8 @@
+"use client"
 import { FileClock, Home, Settings, WalletCards } from "lucide-react";
 import Image from "next/image";
-import React from "react";
+import { usePathname } from "next/navigation";
+import React, { useEffect } from "react";
 
 function SideNav() {
   const MenuList = [
@@ -26,19 +28,25 @@ function SideNav() {
     },
   ];
 
+  const path = usePathname();
+
+  useEffect(() => {
+    console.log(path)
+  },[])
+
   return (
     <div className="h-screen p-3 border rounded-md ml-2">
       <div className="flex justify-center items-start p-3">
         <Image src={"/logo.svg"} alt="logo" width={140} height={140} />
       </div>
       <hr className="mt-[-24px]"/>
-      <div className="mt-3">
+      <div className="mt-5">
         {MenuList.map((menu, index) => (
           <div
-            className="flex items-center gap-2 p-3 hover:bg-[#89D1D0] hover:rounded-lg hover:cursor-pointer"
+            className={`flex items-center gap-2 p-3 mb-3 hover:bg-[#89D1D0] hover:rounded-lg hover:cursor-pointer ${path==menu.path && `text-white bg-[#d88095] rounded-lg cursor-pointer`}`}
           >
-            <menu.icon />
-            <h2>{menu.name}</h2>
+            <menu.icon className="h-7 w-7"/>
+            <h2 className="text-lg">{menu.name}</h2>
           </div>
         ))}
       </div>

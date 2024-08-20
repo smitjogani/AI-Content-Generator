@@ -9,7 +9,7 @@ function Header() {
         <input type='text' placeholder='search' className='outline-none'/>
       </div>
 
-      <div className='bg-[#89d1d0] p-1 rounded-md px-2 cursor-pointer hover:bg-[#d88095] hover:text-white flex items-center justify-center'>
+      <div className='bg-[#89d1d0] rounded-md p-2 cursor-pointer hover:bg-[#d88095] hover:text-white flex items-center justify-center'>
         <h2>Join Membership</h2>
       </div>
 
