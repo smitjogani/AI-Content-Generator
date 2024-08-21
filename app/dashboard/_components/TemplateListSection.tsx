@@ -34,7 +34,7 @@ function TemplateListSectin({ userSearchinput }: any) {
   }, [userSearchinput]);
 
   return (
-    <div className="m-2 rounded-md grid grid-col-3 lg:grid-col-4 gap-5 sm:grid-cols-2">
+    <div className="m-2 rounded-md grid grid-cols-4 md:grid-col-3 lg:grid-col-4 gap-5">
       {templateList.map((item: TEMPLATE, index: number) => (
         <TemplateCard {...item} />
       ))}
