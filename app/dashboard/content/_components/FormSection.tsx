@@ -1,5 +1,5 @@
-'use client'
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import { TEMPLATE } from "../../_components/TemplateListSection";
 import Image from "next/image";
 
@@ -9,13 +9,21 @@ import { Button } from "@/components/ui/button";
 
 interface PROPS {
   selectedTemplate?: TEMPLATE;
+  userFormInput:any
 }
 
-const FormSection = ({ selectedTemplate }: PROPS) => {
+const FormSection = ({ selectedTemplate, userFormInput }: PROPS) => {
+  const [formData, setFormData] = useState<any>();
 
-  const onsubmit = (e:any) => {
+  const handleInputChange = (event: any) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const onsubmit = (e: any) => {
     e.preventDefault();
-  } 
+    userFormInput(formData);
+  };
 
   return (
     <div className="p-5 border shadow-md rounded-md bg-white">
@@ -31,13 +39,21 @@ const FormSection = ({ selectedTemplate }: PROPS) => {
           <div className="my-5 flex gap-2 flex-col">
             <label className="font-bold">{item.label}</label>
             {item.field == "input" ? (
-              <Input />
+              <Input
+                name={item.name}
+                required={item.required}
+                onChange={handleInputChange}
+              />
             ) : (
-              item.field == "textarea" && <Textarea />
+              item.field == "textarea" && (
+                <Textarea name={item.name} onChange={handleInputChange} />
+              )
             )}
           </div>
         ))}
-        <Button type="submit" className="py-6 w-full">Generate Content</Button>
+        <Button type="submit" className="py-6 w-full">
+          Generate Content
+        </Button>
       </form>
     </div>
   );
