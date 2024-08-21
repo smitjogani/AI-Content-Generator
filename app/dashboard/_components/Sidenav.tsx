@@ -35,7 +35,7 @@ function SideNav() {
   },[])
 
   return (
-    <div className="h-screen p-3 border rounded-md ml-2">
+    <div className="h-screen p-3 border rounded-md mb-2 mx-2 bg-white">
       <div className="flex justify-center items-start p-3">
         <Image src={"/logo.svg"} alt="logo" width={140} height={140} />
       </div>
