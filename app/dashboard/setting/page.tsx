@@ -1,8 +1,11 @@
+import { UserProfile } from '@clerk/nextjs'
 import React from 'react'
 
 const Setting = () => {
   return (
-    <div>Setting</div>
+    <div className='flex justify-center items-center h-full py-5'>
+      <UserProfile/>
+    </div>
   )
 }
 

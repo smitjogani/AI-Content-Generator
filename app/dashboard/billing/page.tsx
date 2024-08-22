@@ -39,7 +39,7 @@ const Billing = () => {
             </h1>
           </div>
 
-          <Button className="w-full">Currently activate Plan</Button>
+          <Button className="w-full cursor-not-allowed">Currently activate Plan</Button>
         </div>
 
         <div className="border border-[#D88095] bg-white p-8 rounded-md">
@@ -72,7 +72,7 @@ const Billing = () => {
 
           </div>
 
-          <Button className="w-full">Currently activate Plan</Button>
+          <Button className="w-full">Activate Plan</Button>
         </div>
 
       </div>

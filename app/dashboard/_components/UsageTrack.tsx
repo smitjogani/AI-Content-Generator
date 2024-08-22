@@ -8,15 +8,23 @@ import React, { useContext, useEffect, useState } from "react";
 import { HISTORY } from "../history/page";
 import { eq } from "drizzle-orm";
 import { TotalUsageContext } from "@/app/(context)/TotalUsageContaxt";
+import { UpdateCreditUsageContext } from "@/app/(context)/UpdateCreditUsageContext";
 
 const UsageTrack = () => {
   const { user } = useUser();
 
   const {totalUsage, setTotalUsage} = useContext(TotalUsageContext);
+  const {updateCreditUsage, setUpdateCreditUsage} = useContext(UpdateCreditUsageContext);
+
+  const [maxWords, setMaxWords] = useState(10000);
 
   useEffect(() => {
     user&&GetData();
   }, [user]);
+
+  useEffect(()=>{
+    user&&GetData();
+  },[updateCreditUsage&&user])
 
   const GetData = async () => {
     {/*@ts-ignore*/}

@@ -14,6 +14,7 @@ import { useUser } from "@clerk/nextjs";
 import moment from "moment";
 import { TotalUsageContext } from "@/app/(context)/TotalUsageContaxt";
 import { useRouter } from "next/router";
+import { UpdateCreditUsageContext } from "@/app/(context)/UpdateCreditUsageContext";
 
 interface PROPS {
   params: {
@@ -22,15 +23,25 @@ interface PROPS {
 }
 
 const CreateNewContent = (props: PROPS) => {
+ 
   const [loading, setLoading] = useState(false);
   const [aiOutput, setAiOutput] = useState<string>("");
 
   const { totalUsage, setTotalUsage } = useContext(TotalUsageContext);
+  const {updateCreditUsage, setUpdateCreditUsage} = useContext(UpdateCreditUsageContext);  
+
   const { user } = useUser();
 
   const selectedTemplate: TEMPLATE | undefined = Templates?.find(
     (item) => item.slug == props.params["template-slug"]
   );
+
+
+  /**
+   * Used to generate content
+   * @param formData
+   * @returns
+   */
 
   const generateAiContent = async (formData: any) => {
     if (totalUsage >= 10000) {
@@ -48,6 +59,9 @@ const CreateNewContent = (props: PROPS) => {
     setAiOutput(result?.response.text());
     await SaveInDB(formData, selectedTemplate?.slug, result?.response.text());
     setLoading(false);
+
+    setUpdateCreditUsage(Date.now());
+
   };
 
   const SaveInDB = async (formData: any, slug: any, aiResponse: string) => {
@@ -59,7 +73,6 @@ const CreateNewContent = (props: PROPS) => {
       createdAt: moment().format("DD/MM/yyyy"),
     });
 
-    console.log(result);
   };
 
   return (
