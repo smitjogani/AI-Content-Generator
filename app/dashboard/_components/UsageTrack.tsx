@@ -1,0 +1,62 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { db } from "@/utils/db";
+import { AIOutput } from "@/utils/schema";
+import { useUser } from "@clerk/nextjs";
+import React, { useContext, useEffect, useState } from "react";
+import { HISTORY } from "../history/page";
+import { eq } from "drizzle-orm";
+import { TotalUsageContext } from "@/app/(context)/TotalUsageContaxt";
+
+const UsageTrack = () => {
+  const { user } = useUser();
+
+  const {totalUsage, setTotalUsage} = useContext(TotalUsageContext);
+
+  useEffect(() => {
+    user&&GetData();
+  }, [user]);
+
+  const GetData = async () => {
+    {/*@ts-ignore*/}
+    const result:HISTORY []= await db
+      .select()
+      .from(AIOutput)
+      .where(eq(AIOutput.createBy, user?.primaryEmailAddress?.emailAddress));
+
+      GetTotalUsage(result);
+  };
+
+  const GetTotalUsage = (result:HISTORY[]) => {
+    let total: number = 0;
+
+    result.forEach((element) => {
+      total += Number(element.aiResponse?.length);
+    });
+
+    // console.log(total);
+    setTotalUsage(total);
+  };
+
+  return (
+    <div className="flex flex-col gap-2">
+      <div className="bg-gradient-to-tr to-[#89D1D0] via-[#8E84C8] from-[#d88095] rounded-md p-3 text-white">
+        <h2 className="font-medium text-[18px]">Credits</h2>
+        <div className="h-2 w-full mt-3 rounded-full bg-[#534c7b]">
+          <div
+            className="h-2 bg-[#fff] rounded-full"
+            style={{ width: (totalUsage/10000)*100 + "%"}}
+          ></div>
+        </div>
+        <h2 className="text-sm mt-2">{totalUsage}/10,000 credit used</h2>
+      </div>
+
+      <Button variant={"secondary"} className="w-full">
+        Upgrade
+      </Button>
+    </div>
+  );
+};
+
+export default UsageTrack;
