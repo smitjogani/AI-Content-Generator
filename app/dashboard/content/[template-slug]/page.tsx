@@ -33,10 +33,9 @@ const CreateNewContent = (props: PROPS) => {
   );
 
   const generateAiContent = async (formData: any) => {
-    const router = useRouter();
     if (totalUsage >= 10000) {
       alert("Update Your Plan");
-      return router.push("dashboard/billing");
+      return;
     }
 
     setLoading(true);

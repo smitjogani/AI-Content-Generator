@@ -40,7 +40,7 @@ const UsageTrack = () => {
   };
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 overflow-x-hidden">
       <div className="bg-gradient-to-tr to-[#89D1D0] via-[#8E84C8] from-[#d88095] rounded-md p-3 text-white">
         <h2 className="font-medium text-[18px]">Credits</h2>
         <div className="h-2 w-full mt-3 rounded-full bg-[#534c7b]">

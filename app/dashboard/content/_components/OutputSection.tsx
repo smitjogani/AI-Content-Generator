@@ -21,7 +21,7 @@ function OutputSection({ aiOutput }: PROPS) {
     <div className="border rounded-md shadow-md bg-white">
       <div className="flex px-5 py-3 items-center justify-between">
         <h2 className="font-bold text-lg text-[#8C88CA]">Your Result</h2>
-        <Button className="flex gap-2">
+        <Button className="flex gap-2" onClick={()=>navigator.clipboard.writeText(aiOutput)}>
           <Copy className="w-4 h-4" /> Copy
         </Button>
       </div>
