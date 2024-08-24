@@ -9,34 +9,41 @@ import { HISTORY } from "../history/page";
 import { eq } from "drizzle-orm";
 import { TotalUsageContext } from "@/app/(context)/TotalUsageContaxt";
 import { UpdateCreditUsageContext } from "@/app/(context)/UpdateCreditUsageContext";
+import Link from "next/link";
 
 const UsageTrack = () => {
   const { user } = useUser();
 
-  const {totalUsage, setTotalUsage} = useContext(TotalUsageContext);
-  const {updateCreditUsage, setUpdateCreditUsage} = useContext(UpdateCreditUsageContext);
+  const [loading, setLoading] = useState(false);
+
+  const { totalUsage, setTotalUsage } = useContext(TotalUsageContext);
+  const { updateCreditUsage, setUpdateCreditUsage } = useContext(
+    UpdateCreditUsageContext
+  );
 
   const [maxWords, setMaxWords] = useState(10000);
 
   useEffect(() => {
-    user&&GetData();
+    user && GetData();
   }, [user]);
 
-  useEffect(()=>{
-    user&&GetData();
-  },[updateCreditUsage&&user])
+  useEffect(() => {
+    user && GetData();
+  }, [updateCreditUsage && user]);
 
   const GetData = async () => {
-    {/*@ts-ignore*/}
-    const result:HISTORY []= await db
+    {
+      /*@ts-ignore*/
+    }
+    const result: HISTORY[] = await db
       .select()
       .from(AIOutput)
       .where(eq(AIOutput.createBy, user?.primaryEmailAddress?.emailAddress));
 
-      GetTotalUsage(result);
+    GetTotalUsage(result);
   };
 
-  const GetTotalUsage = (result:HISTORY[]) => {
+  const GetTotalUsage = (result: HISTORY[]) => {
     let total: number = 0;
 
     result.forEach((element) => {
@@ -54,15 +61,17 @@ const UsageTrack = () => {
         <div className="h-2 w-full mt-3 rounded-full bg-[#534c7b]">
           <div
             className="h-2 bg-[#fff] rounded-full"
-            style={{ width: (totalUsage/10000)*100 + "%"}}
+            style={{ width: (totalUsage / 10000) * 100 + "%" }}
           ></div>
         </div>
         <h2 className="text-sm mt-2">{totalUsage}/10,000 credit used</h2>
       </div>
 
-      <Button variant={"secondary"} className="w-full">
-        Upgrade
-      </Button>
+      <Link href={'/dashboard/billing'}>
+        <Button variant={"secondary"} className="w-full">
+          Upgrade
+        </Button>
+      </Link>
     </div>
   );
 };
