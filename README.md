@@ -1,5 +1,7 @@
 ## AI Content Generator ##
 👉 It is a platform where user can Generate 18 types of content with the help of AI. Here User Note need to write entire prompt to generate content. only enter the topic name.
+👉 Latest Auth2 Authentication.
+👉 Stripe for Payments.
 
 ## Tools & Technology ##
 
