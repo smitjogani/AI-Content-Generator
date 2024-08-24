@@ -4,24 +4,23 @@ import { Button } from "@/components/ui/button";
 import { db } from "@/utils/db";
 import { AIOutput } from "@/utils/schema";
 import { useUser } from "@clerk/nextjs";
-import React, { useContext, useEffect, useState } from "react";
+import React, { use, useContext, useEffect, useState } from "react";
 import { HISTORY } from "../history/page";
 import { eq } from "drizzle-orm";
 import { TotalUsageContext } from "@/app/(context)/TotalUsageContaxt";
 import { UpdateCreditUsageContext } from "@/app/(context)/UpdateCreditUsageContext";
 import Link from "next/link";
+import { UserSubscription } from "@/app/(context)/UserSubscription";
 
 const UsageTrack = () => {
   const { user } = useUser();
-
-  const [loading, setLoading] = useState(false);
 
   const { totalUsage, setTotalUsage } = useContext(TotalUsageContext);
   const { updateCreditUsage, setUpdateCreditUsage } = useContext(
     UpdateCreditUsageContext
   );
 
-  const [maxWords, setMaxWords] = useState(10000);
+  const {userSubscription, setUserSubscription} = useContext(UserSubscription);
 
   useEffect(() => {
     user && GetData();

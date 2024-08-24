@@ -1,9 +1,13 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import React from "react";
+import React, { useContext } from "react";
 import axios from "axios";
+import { UserSubscription } from "@/app/(context)/UserSubscription";
 
 const Billing = () => {
+  const { userSubscription, setUserSubscription } =
+    useContext(UserSubscription);
+
   const checkoutButton = async () => {
     try {
       const response = await axios.post("/api/payment", {
@@ -12,9 +16,8 @@ const Billing = () => {
       });
 
       const ResponseData = await response.data;
-
-      window.location.href=ResponseData.url;
-
+      setUserSubscription(true);
+      window.location.href = ResponseData.url;
     } catch (error: any) {
       console.log({ msg: error.error });
     }
@@ -88,9 +91,15 @@ const Billing = () => {
             </h1>
           </div>
 
-          <Button className="w-full" onClick={checkoutButton}>
-            Activate Plan
-          </Button>
+          {userSubscription==true ? (
+            <Button className="w-full" onClick={checkoutButton}>
+              Your Plan is activated
+            </Button>
+          ) : (
+            <Button className="w-full" onClick={checkoutButton}>
+              Activate Plan
+            </Button>
+          )}
         </div>
       </div>
     </div>

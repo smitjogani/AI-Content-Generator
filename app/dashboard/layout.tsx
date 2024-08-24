@@ -14,11 +14,11 @@ function layout({
   
   const [totalUsage, setTotalUsage] = useState<Number>(0);
   const [updateCreditUsage, setUpdateCreditUsage] = useState<any>();
-  // const [userSubscription, setUserSubscription] = useState<any>(false);
+  const [userSubscription, setUserSubscription] = useState<boolean>(false);
 
   return (
     <TotalUsageContext.Provider value={{ totalUsage, setTotalUsage }}>
-      {/* <UserSubscription.Provider value={{userSubscription, setUserSubscription}}> */}
+      <UserSubscription.Provider value={{userSubscription, setUserSubscription}}>
       <UpdateCreditUsageContext.Provider value={{updateCreditUsage, setUpdateCreditUsage}}>
         <div className=" py-2 bg-slate-100">
           <div className="md:w-64 hidden md:block fixed">
@@ -30,7 +30,7 @@ function layout({
           </div>
         </div>
       </UpdateCreditUsageContext.Provider>
-      {/* </UserSubscription.Provider> */}
+      </UserSubscription.Provider>
     </TotalUsageContext.Provider>
   );
 }
