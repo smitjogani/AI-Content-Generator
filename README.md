@@ -12,7 +12,8 @@
 👉 React JS
 👉 Type Script
 👉 Stripe
-👉 Drizzle 
+👉 Drizzle
+👉 Tailwind CSS
 ```
 
 ## Demo ##
